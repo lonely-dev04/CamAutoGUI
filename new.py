@@ -34,25 +34,38 @@ while cap.isOpened():
             centroid_y = int(centroid_y * frame.shape[0])
             # Draw centroid on frame
             cv2.circle(frame, (centroid_x, centroid_y), 5, (255, 0, 0), -1)
+            print(centroid_x,centroid_y)
             gui.moveTo(centroid_x,centroid_y)
             
-            landmarks = np.array([[lm.x, lm.y] for lm in hand_landmarks.landmark])
-            
-            # Calculate distance between thumb and index finger landmarks
-            thumb_tip = landmarks[4]
-            index_tip = landmarks[8]
-            distance = np.linalg.norm(thumb_tip - index_tip)
+            # landmarks = np.array([[lm.x, lm.y] for lm in hand_landmarks.landmark])
+            #
+            # # Calculate distance between thumb and index finger landmarks
+            # thumb_tip = landmarks[4]
+            # index_tip = landmarks[8]
+            # middle_tip = landmarks[12]
+            # distance_1 = np.linalg.norm(thumb_tip - index_tip)
+            # distance_2 = np.linalg.norm(thumb_tip - middle_tip)
+            # # print(f"Distance: {distance_1}")
+            # # print(f"Distance: {distance_2}")
+            # x_axis = int(thumb_tip[0] * frame.shape[1])
+            # y_axis = int(thumb_tip[1] * frame.shape[0])
+            # print(thumb_tip)
 
-            # Predict gesture based on distance change
-            if distance < 0.05:
-                gesture = "Closing"
-                gui.mouseDown(button="left")
-                print("gui.mouseDown(button=left)")
-            else:
-                gesture = "OPening"
-                gui.mouseUp(button="left")
-                print("gui.mouseUp(button=left)")
-            cv2.putText(frame, f"Gesture: {gesture}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
+            # gesture = ""
+            # # Predict gesture based on distance change
+            # if distance_1 < 0.05:
+            #     gesture = "Left Click"
+            #     gui.mouseDown(button="left")
+            #     print("gui.mouseDown(button=left)")
+            # if distance_2 < 0.05:
+            #     gesture = "Right Click"
+            #     gui.click(button="right")
+            #     print("gui.mouseDown(button=right)")
+            # if distance_1 > 0.1:
+            #     gesture = "Nothing"
+            #     gui.mouseUp(button="left")
+            #     print("gui.mouseUp(button=left)")
+            # cv2.putText(frame, f"Gesture: {gesture}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
             # Store current landmarks for next iteration
             
